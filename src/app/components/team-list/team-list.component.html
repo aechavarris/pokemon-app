@@ -1,25 +1,27 @@
-<!-- src/app/components/team-list/team-list.component.html -->
-<ion-header>
-    <ion-toolbar>
-      <ion-title>Lista de Equipos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<div class="team-container" *ngFor="let team of teams">
+  <div class="team-header" (click)="toggleTeamDetails(team.id)">
+    <ion-icon name="arrow-down-outline" class="arrow-icon"></ion-icon>
+    <h3>{{ team.name }}</h3>
+    <ion-row class="pokemon-row">
+      <ion-col *ngFor="let pokemon of team.pokemons">
+        <img [src]="pokemon.image" alt="{{ pokemon.name }} sprite" class="pokemon-image">
+      </ion-col>
+    </ion-row> 
+  </div>
   
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let team of teams" (click)="openTeam(team)">
-        {{ team.name }}
-        <div class="team-list">
-          <div *ngFor="let pokemon of team.pokemons; let i = index" class="pokemon-card">
-            <img [src]="pokemon.image" alt="{{ pokemon.name }}" (click)="togglePokemonDetails(i)">
-            <div *ngIf="expandedPokemonDetails.includes(i)" class="pokemon-details">
-              <h3>{{ pokemon.name }}</h3>
-              <!-- Aquí muestra más detalles como movimientos, tipos, habilidades, objetos, etc. -->
-            </div>
-          </div>
+  <div class="pokemon-details" *ngIf="expandedPokemonDetails.includes(team.id)">
+    <div class="pokemon-row" *ngFor="let pokemon of team.pokemons">
+      <div class="pokemon-info">
+        <h4>{{ pokemon.name }}</h4>
+        <img [src]="pokemon.image" alt="{{ pokemon.name }} sprite" class="pokemon-image">
+      </div>
+      <div class="pokemon-types">
+        <h5>Types:</h5>
+        <div *ngFor="let type of pokemon.type" class="type-item">
+          <img [src]="type.url" alt="{{ type.name }} icon" class="type-icon">
+          <span>{{ type.name }}</span>
         </div>
-        
-      </ion-item>
-    </ion-list>
-  </ion-content>
-  
+      </div>
+    </div>
+  </div>
+</div>

@@ -41,7 +41,7 @@ export class PokemonService {
       map(pokemonData => ({
         id: pokemonData.id,
         name: pokemonData.name,
-        type: pokemonData.types.map((type: any) => type.type.name),
+        type: pokemonData.types,
         sprites: pokemonData.sprites,
         baseStats: {
           hp: pokemonData.stats[0].base_stat,
@@ -110,6 +110,9 @@ export class PokemonService {
           throw error;
         })
       );
+  }
+  private capitalizeFirstLetter(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }
 

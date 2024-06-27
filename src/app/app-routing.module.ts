@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'teams', component: TeamListComponent },
-  { path: 'team-editor', component: TeamEditorComponent },
+  { path: 'team-editor/{id}', component: TeamEditorComponent },
   { path: 'tournaments', component: TournamentListComponent },
   { path: 'tournament-editor', component: TournamentEditorComponent },
   { path: 'match-viewer', component: MatchViewerComponent },

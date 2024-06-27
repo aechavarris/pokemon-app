@@ -1,8 +1,10 @@
+import { Type } from "./type.model";
+
 // pokemon.model.ts
 export interface Pokemon {
   id: number;
   name: string;
-  type: string[];
+  type: Type[];
   baseStats: { [key: string]: number };
   ivs: { [key: string]: number };
   evs: { [key: string]: number };

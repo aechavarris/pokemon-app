@@ -16,6 +16,8 @@ export class TeamListComponent implements OnInit {
 
   teams: Team[] = [];
   expandedPokemonDetails: any[] = [];
+  pokemonImages: string[] = [];
+  expandedTeamIndex: number | null = null;
   constructor(private http: HttpClient, private router: Router, private pokemonService: PokemonService) {
     this.loadExcelFile();
   }
@@ -42,6 +44,7 @@ export class TeamListComponent implements OnInit {
     // Esperar a que todas las promesas se resuelvan usando Promise.all
     Promise.all(teamPromises)
       .then((teams: Team[]) => {
+        debugger;
         this.teams = teams; // Asignar los equipos resueltos a this.teams
         console.log('Equipos cargados desde JSON:', this.teams);
         this.fetchPokemonImages(); // Llamar a fetchPokemonImages después de cargar los equipos
@@ -72,11 +75,15 @@ export class TeamListComponent implements OnInit {
     });
   }
 
-  togglePokemonDetails(index: number): void {
-    if (this.expandedPokemonDetails.includes(index)) {
-      this.expandedPokemonDetails = this.expandedPokemonDetails.filter(i => i !== index);
+  toggleTeamDetails(index: number): void {
+    if (this.expandedTeamIndex === index) {
+      this.expandedTeamIndex = null;
     } else {
-      this.expandedPokemonDetails.push(index);
+      this.expandedTeamIndex = index;
     }
+  }
+
+  getDetailImageSize(): string {
+    return '60%'; // Tamaño de imagen reducido al 60% del original
   }
 }

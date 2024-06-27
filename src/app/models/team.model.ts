@@ -1,7 +1,7 @@
 import { Pokemon } from './pokemon.model'; // Asegúrate de importar el modelo de Pokemon
 let lastGeneratedTeamId = 0;
 export interface Team {
-  userId: number; // Ajusta el tipo según tu modelo de usuario
+  user: string; // Ajusta el tipo según tu modelo de usuario
   id: number;
   name: string;
   pokemons: Pokemon[]; // Utiliza un array de Pokemon en lugar de simplemente strings
@@ -11,8 +11,8 @@ export interface Team {
 export const createTeamFromJson = (jsonData: any, pokemonService: any): Promise<Team> => {
   return new Promise<Team>((resolve, reject) => {
     const newId = ++lastGeneratedTeamId;
-    const teamName = jsonData.name;
-
+    const teamName = jsonData[2];
+    const user = jsonData[1]
     // Obtener los nombres de los Pokémon a partir de los índices 3 al 12 en jsonData
     const pokemonIndices = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // Índices de los nombres de los Pokémon
     const pokemonNames = pokemonIndices.map(index => jsonData[index]);
@@ -29,7 +29,7 @@ export const createTeamFromJson = (jsonData: any, pokemonService: any): Promise<
               baseStats: { /* Define los stats base aquí */ },
               ivs: { /* Define los IVs aquí */ },
               evs: { /* Define los EVs aquí */ },
-              moves: pokemonData.moves,
+              moves: pokemonData.moves.map( (move:any) => pokemonService.capitalizeFirstLetter(move)),
               ability: pokemonData.abilities,
               item: '' // Aquí puedes definir el ítem del Pokémon si es relevante
               ,
@@ -51,8 +51,8 @@ export const createTeamFromJson = (jsonData: any, pokemonService: any): Promise<
     Promise.all(pokemonPromises)
       .then((pokemons: Pokemon[]) => {
         const newTeam: Team = {
-          userId: jsonData.userId,
           id: newId,
+          user: user,
           name: teamName,
           pokemons: pokemons
         };
