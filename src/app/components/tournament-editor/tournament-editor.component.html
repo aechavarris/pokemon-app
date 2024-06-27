@@ -1,0 +1,31 @@
+<!-- src/app/components/tournament-editor/tournament-editor.component.html -->
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Editor de Torneos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let tournament of tournaments" (click)="selectedTournament = tournament">
+        {{ tournament.name }}
+      </ion-item>
+    </ion-list>
+  
+    <div *ngIf="selectedTournament">
+      <h2>{{ selectedTournament.name }}</h2>
+      <ion-list>
+        <ion-item *ngFor="let participant of selectedTournament.participants">
+          Participant ID: {{ participant }}
+        </ion-item>
+      </ion-list>
+  
+      <ion-item>
+        <ion-label>Agregar Participante</ion-label>
+        <ion-input type="number" (ionChange)="addParticipant($event.detail.value)"></ion-input>
+      </ion-item>
+  
+      <ion-button (click)="saveTournament()">Guardar Torneo</ion-button>
+    </div>
+  </ion-content>
+  

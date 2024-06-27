@@ -1,0 +1,17 @@
+<!-- src/app/components/match-viewer/match-viewer.component.html -->
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Visualizador de Partidos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content *ngIf="tournament">
+    <div *ngFor="let match of tournament.matches">
+      <h3>Partido {{ match.id }}</h3>
+      <p>Jugador 1: {{ match.player1 }}</p>
+      <p>Jugador 2: {{ match.player2 }}</p>
+      <ion-button (click)="declareWinner(match, match.player1)">Ganador: Jugador 1</ion-button>
+      <ion-button (click)="declareWinner(match, match.player2)">Ganador: Jugador 2</ion-button>
+    </div>
+  </ion-content>
+  
