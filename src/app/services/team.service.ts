@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Team, createTeamFromJson } from '../models/team.model';
 import { WorkBook, read, utils } from 'xlsx';
+import { PokemonService } from './pokemon.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class TeamService {
   private teamsSheetName: string = 'Teams'; // Nombre de la hoja para equipos en el archivo XLSX
   private workbook!: WorkBook;
 
+  constructor(private pokemonService: PokemonService){}
   loadWorkbook(file: File): Promise<void> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -41,8 +43,8 @@ export class TeamService {
     // ...
   }
 
-  registerTeam(newTeamJson: any): void {
-    const newTeam = createTeamFromJson(newTeamJson);
+  async registerTeam(newTeamJson: any): Promise<void> {
+    const newTeam = await createTeamFromJson(newTeamJson, this.pokemonService);
     // Aquí podrías enviar el nuevo equipo a tu API o agregarlo a tu base de datos local
     this.teams.push(newTeam); // Agregarlo localmente a la lista de equipos
   }

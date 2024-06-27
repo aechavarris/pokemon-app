@@ -1,0 +1,16 @@
+<div *ngIf="pokemon">
+  <h2>{{ pokemon.name }}</h2>
+  <img [src]="pokemon.spriteUrl" alt="Imagen de {{ pokemon.name }}">
+  <h3>Movimientos:</h3>
+  <ul>
+    <li *ngFor="let move of moves">{{ move.name }}</li>
+  </ul>
+  <h3>Habilidades:</h3>
+  <ul>
+    <li *ngFor="let ability of abilities">{{ ability.name }}</li>
+  </ul>
+  <h3>Objetos Equipables:</h3>
+  <ul>
+    <li *ngFor="let item of equipableItems">{{ item.name }}</li>
+  </ul>
+</div>
