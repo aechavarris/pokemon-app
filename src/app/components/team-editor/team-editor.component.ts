@@ -4,6 +4,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { TeamService } from '../../services/team.service';
 import { Team } from '../../models/team.model';
 import { Pokemon } from 'src/app/models/pokemon.model';
+import { Item } from 'src/app/models/item.model';
 
 @Component({
   selector: 'app-team-editor',
@@ -15,13 +16,13 @@ export class TeamEditorComponent implements OnInit {
   selectedTeam: Team | null = null;
   availablePokemon!: Pokemon[];
   selectedPokemon: Pokemon | null = null;
-  objects!: string[];
+  objects!: Item[];
 
   constructor(private pokemonService: PokemonService, private teamService: TeamService) {}
 
   async ngOnInit() {
     this.pokemonService.getAllPokemon().subscribe(data => this.availablePokemon = data);
-    this.pokemonService.getEquipableItems().subscribe(data => this.objects = data);
+    this.pokemonService.getEquipableItems().then(data => this.objects = data);
     // Obtener equipos del usuario (puedes agregar lógica para obtener el ID del usuario actual)
   }
 
@@ -39,5 +40,8 @@ export class TeamEditorComponent implements OnInit {
     if (this.selectedTeam) {
       this.teamService.saveTeam(this.selectedTeam);
     }
+  }
+  selectItem(name:string){
+    return this.objects.find(item => item.name === name);
   }
 }

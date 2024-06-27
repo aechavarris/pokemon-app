@@ -1,12 +1,11 @@
 // src/app/components/team-list/team-list.component.ts
-import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../../services/team.service';
 import { Team, createTeamFromJson } from '../../models/team.model';
 import { HttpClient } from '@angular/common/http';
 import { read, utils } from 'xlsx';
-import { Router } from '@angular/router';
 import { PokemonService } from 'src/app/services/pokemon.service';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; 
 @Component({
   selector: 'app-team-list',
   templateUrl: './team-list.component.html',
@@ -39,13 +38,13 @@ export class TeamListComponent implements OnInit {
     const jsonData = utils.sheet_to_json(worksheet, { header: 1 });
 
     // Mapear el array de jsonData a un array de objetos Team
-    debugger;
+    
     const teamPromises = jsonData.map((jsonData: any) => createTeamFromJson(jsonData, this.pokemonService));
 
     // Esperar a que todas las promesas se resuelvan usando Promise.all
     Promise.all(teamPromises)
       .then((teams: Team[]) => {
-        debugger;
+        
         this.teams = teams; // Asignar los equipos resueltos a this.teams
         console.log('Equipos cargados desde JSON:', this.teams);
         this.fetchPokemonImages(); // Llamar a fetchPokemonImages después de cargar los equipos
@@ -60,10 +59,10 @@ export class TeamListComponent implements OnInit {
   }
 
   fetchPokemonImages(): void {
-    debugger;
+    
     this.teams.forEach(team =>{
       team.pokemons.forEach(pokemon => {
-        this.pokemonService.getPokemonByName(pokemon.name).subscribe(
+        this.pokemonService.getPokemonByName(pokemon.name).then(
           pokemonData => {
             pokemon.image = pokemonData.sprites.front_default;
             // También podrías guardar otros detalles necesarios aquí
@@ -77,7 +76,7 @@ export class TeamListComponent implements OnInit {
   }
 
   toggleTeamDetails(index: number): void {
-    debugger;
+    
     if (this.expandedTeamIndex === index) {
       this.expandedTeamIndex = null;
     } else {
@@ -91,5 +90,9 @@ export class TeamListComponent implements OnInit {
   titleCaseWord(word: string) {
     if (!word) return word;
     return word[0].toUpperCase() + word.substr(1).toLowerCase();
+  }
+
+  getIonIconName(typeName: string): string {
+    return `src/assets/icon/${typeName.toLowerCase()}.svg`;
   }
 }

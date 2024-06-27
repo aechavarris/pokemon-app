@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    debugger;
+    
     const user = this.users.find(u => u.username === username && u.password === password);
     if (user) {
       return of({ success: true, user });

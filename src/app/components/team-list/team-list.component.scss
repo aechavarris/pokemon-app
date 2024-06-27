@@ -22,17 +22,118 @@ h3 {
 }
 
 .pokemon-image {
-  width: 40px;
-  height: 40px;
+  width: 60px; /* Aumenta el ancho de la imagen del Pokémon */
+  height: 60px; /* Aumenta la altura de la imagen del Pokémon */
   margin: 0 5px;
 }
 
+
 .pokemon-details {
   margin-left: 20px; /* Margen para alinear los detalles del Pokémon */
+  max-height: 400px; /* Ajusta esta altura máxima según tus necesidades */
+  overflow-y: auto; /* Añade scroll vertical cuando el contenido exceda la altura máxima */
 }
 
 .pokemon-detail-row {
   display: flex;
+  margin-bottom: 10px;
+}
+
+.pokemon-info {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-detail-image {
+  width: 80px; /* Aumenta el ancho de la imagen del detalle del Pokémon */
+  height: 80px; /* Aumenta la altura de la imagen del detalle del Pokémon */
+  margin-right: 10px;
+}
+
+.pokemon-extra-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pokemon-types {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.pokemon-stats, .pokemon-moves, .pokemon-ability, .pokemon-item {
+  margin-bottom: 10px;
+  min-height:40px;
+  max-width: 250px;
+}
+
+.pokemon-stats ul, .pokemon-moves ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  min-height:40px;
+}
+
+/* Estilos generales para el cuerpo de la aplicación */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal de la aplicación */
+.app-container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+/* Barra de menú superior */
+.menu-bar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.menu-bar nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-bar nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.menu-bar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.menu-bar nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor del contenido principal */
+.content-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f0f0f0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+/* Puedes añadir estilos adicionales según sea necesario */
+.pokemon-detail-row {
   margin-bottom: 10px;
 }
 
@@ -72,4 +173,103 @@ h3 {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+.pokemon-image-large {
+  width: 80px; /* Aumenta el tamaño de la imagen en un 200% */
+  height: 80px; /* Ajusta la altura proporcionalmente si es necesario */
+}
+
+.pokemon-detail-image-large {
+  width: 120px; /* Aumenta el tamaño de la imagen en un 200% */
+  height: 120px; /* Ajusta la altura proporcionalmente si es necesario */
+}
+
+.pokemon-image-extra-large {
+  width: 160px; /* Aumenta el tamaño de la imagen en un 400% (200% + 200%) */
+  height: 160px; /* Ajusta la altura proporcionalmente si es necesario */
+}
+
+.pokemon-detail-image-extra-large {
+  width: 240px; /* Aumenta el tamaño de la imagen en un 400% (200% + 200%) */
+  height: 240px; /* Ajusta la altura proporcionalmente si es necesario */
+}
+
+.pokemon-detail-container {
+  max-height: 500px; /* Ejemplo de altura máxima */
+  overflow-y: auto; /* Agrega scroll vertical si el contenido supera la altura máxima */
+}
+
+.pokemon-info,
+.pokemon-stats,
+.pokemon-moves,
+.pokemon-ability-item {
+  border: 1px solid #ccc; /* Color y grosor del borde */
+  padding: 10px; /* Espacio interno */
+  margin-bottom: 10px; /* Espacio entre los elementos */
+  border-radius: 5px; /* Esquinas redondeadas */
+  background-color: #f9f9f9; /* Fondo */
+  max-width: 150px;
+}
+
+/* Estilos adicionales para la página */
+.pokemon-details {
+  padding: 10px;
+}
+
+.pokemon-detail-container {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.pokemon-ability-item {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.pokemon-detail-image {
+  display: block;
+  margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+  max-width: 100px; /* Ajusta el ancho máximo de la imagen */
+}
+
+/* Estilos específicos para la lista de equipos */
+.team-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+.team-header h3 {
+  margin: 0;
+}
+
+.pokemon-row {
+  margin-top: 5px;
+}
+
+.pokemon-image-extra-large {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+.pokemon-detail-image-extra-large {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }

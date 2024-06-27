@@ -1,8 +1,8 @@
 // team.service.ts
-import { Injectable } from '@angular/core';
 import { Team, createTeamFromJson } from '../models/team.model';
 import { WorkBook, read, utils } from 'xlsx';
 import { PokemonService } from './pokemon.service';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'

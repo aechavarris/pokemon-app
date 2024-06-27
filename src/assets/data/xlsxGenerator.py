@@ -33,23 +33,23 @@ users_data = [
 
 # Datos de ejemplo para Pokémon
 pokemon_data = [
-    {"id": 1, "name": "Pikachu", "type1": "Electric", "type2": "", "hp": 35, "attack": 55, "defense": 40,
-     "special_attack": 50, "special_defense": 50, "speed": 90, "ability": "Static", "move1": "Thunderbolt",
-     "move2": "Quick Attack", "move3": "Iron Tail", "move4": "Volt Tackle", "item": "Light Ball"},
-    {"id": 2, "name": "Charizard", "type1": "Fire", "type2": "Flying", "hp": 78, "attack": 84, "defense": 78,
-     "special_attack": 109, "special_defense": 85, "speed": 100, "ability": "Blaze", "move1": "Flamethrower",
+    {"id": 1, "name": "Pikachu", "type1": "Electric", "type2": "", "hp": 35, "Atk": 55, "def": 40,
+     "special_Atk": 50, "special_def": 50, "Spe": 90, "ability": "Static", "move1": "Thunderbolt",
+     "move2": "Quick Atk", "move3": "Iron Tail", "move4": "Volt Tackle", "item": "Light Ball"},
+    {"id": 2, "name": "Charizard", "type1": "Fire", "type2": "Flying", "hp": 78, "Atk": 84, "def": 78,
+     "special_Atk": 109, "special_def": 85, "Spe": 100, "ability": "Blaze", "move1": "Flamethrower",
      "move2": "Air Slash", "move3": "Dragon Claw", "move4": "Solar Beam", "item": "Charizardite Y"},
-    {"id": 3, "name": "Blastoise", "type1": "Water", "type2": "", "hp": 79, "attack": 83, "defense": 100,
-     "special_attack": 85, "special_defense": 105, "speed": 78, "ability": "Torrent", "move1": "Hydro Pump",
+    {"id": 3, "name": "Blastoise", "type1": "Water", "type2": "", "hp": 79, "Atk": 83, "def": 100,
+     "special_Atk": 85, "special_def": 105, "Spe": 78, "ability": "Torrent", "move1": "Hydro Pump",
      "move2": "Ice Beam", "move3": "Aqua Tail", "move4": "Rapid Spin", "item": "Blastoisinite"},
-    {"id": 4, "name": "Venusaur", "type1": "Grass", "type2": "Poison", "hp": 80, "attack": 82, "defense": 83,
-     "special_attack": 100, "special_defense": 100, "speed": 80, "ability": "Overgrow", "move1": "Solar Beam",
+    {"id": 4, "name": "Venusaur", "type1": "Grass", "type2": "Poison", "hp": 80, "Atk": 82, "def": 83,
+     "special_Atk": 100, "special_def": 100, "Spe": 80, "ability": "Overgrow", "move1": "Solar Beam",
      "move2": "Sludge Bomb", "move3": "Earthquake", "move4": "Synthesis", "item": "Venusaurite"},
-    {"id": 5, "name": "Gengar", "type1": "Ghost", "type2": "Poison", "hp": 60, "attack": 65, "defense": 60,
-     "special_attack": 130, "special_defense": 75, "speed": 110, "ability": "Levitate", "move1": "Shadow Ball",
+    {"id": 5, "name": "Gengar", "type1": "Ghost", "type2": "Poison", "hp": 60, "Atk": 65, "def": 60,
+     "special_Atk": 130, "special_def": 75, "Spe": 110, "ability": "Levitate", "move1": "Shadow Ball",
      "move2": "Sludge Bomb", "move3": "Focus Blast", "move4": "Thunderbolt", "item": "Gengarite"},
-    {"id": 6, "name": "Dragonite", "type1": "Dragon", "type2": "Flying", "hp": 91, "attack": 134, "defense": 95,
-     "special_attack": 100, "special_defense": 100, "speed": 80, "ability": "Inner Focus", "move1": "Outrage",
+    {"id": 6, "name": "Dragonite", "type1": "Dragon", "type2": "Flying", "hp": 91, "Atk": 134, "def": 95,
+     "special_Atk": 100, "special_def": 100, "Spe": 80, "ability": "Inner Focus", "move1": "Outrage",
      "move2": "Dragon Dance", "move3": "Earthquake", "move4": "Fire Punch", "item": "Leftovers"}
 ]
 
@@ -84,11 +84,11 @@ for user in users_data:
 
 # Hoja para Pokémon
 ws_pokemon = wb.create_sheet("Pokemon")
-ws_pokemon.append(["id", "name", "type1", "type2", "hp", "attack", "defense", "special_attack", "special_defense",
-                   "speed", "ability", "move1", "move2", "move3", "move4", "item"])
+ws_pokemon.append(["id", "name", "type1", "type2", "hp", "Atk", "def", "special_Atk", "special_def",
+                   "Spe", "ability", "move1", "move2", "move3", "move4", "item"])
 for poke in pokemon_data:
-    ws_pokemon.append([poke["id"], poke["name"], poke["type1"], poke["type2"], poke["hp"], poke["attack"],
-                       poke["defense"], poke["special_attack"], poke["special_defense"], poke["speed"],
+    ws_pokemon.append([poke["id"], poke["name"], poke["type1"], poke["type2"], poke["hp"], poke["Atk"],
+                       poke["def"], poke["special_Atk"], poke["special_def"], poke["Spe"],
                        poke["ability"], poke["move1"], poke["move2"], poke["move3"], poke["move4"], poke["item"]])
 
 # Guardar el archivo

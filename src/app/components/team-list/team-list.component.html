@@ -1,46 +1,69 @@
-<div class="team-container" *ngFor="let team of teams">
-  <div class="team-header" (click)="toggleTeamDetails(team.id)">
-    <ion-icon name="arrow-down-outline" class="arrow-icon"></ion-icon>
-    <h3>{{ team.name | titlecase }}</h3>
-    <ion-row class="pokemon-row">
-      <ion-col *ngFor="let pokemon of team.pokemons">
-        <img [src]="" alt="{{ pokemon.name | titlecase }} sprite" class="pokemon-image">
-      </ion-col>
-    </ion-row>
-  </div>
-  
-  <div class="pokemon-details" *ngIf="expandedTeamIndex === team.id">
-    <div class="pokemon-detail-row" *ngFor="let pokemon of team.pokemons">
-      <div class="pokemon-info">
-        <img [src]="" alt="{{ pokemon.name | titlecase }} image" class="pokemon-detail-image">
-        <h4>{{ pokemon.name | titlecase }}</h4>
-      </div>
-      <div class="pokemon-extra-info">
-        <div class="pokemon-types" *ngFor="let type of pokemon.type">
-          <img [src]="type.url" alt="{{ type.name | titlecase }} icon" class="type-icon">
-          <span>{{ type.name | titlecase }}</span>
-        </div>
-        <div class="pokemon-stats">
-          <h5>Stats:</h5>
-          <ul>
-            <li *ngFor="let stat of pokemon.baseStats | keyvalue">{{ stat.key | titlecase }}: {{ stat.value }}</li>
-          </ul>
-        </div>
-        <div class="pokemon-moves">
-          <h5>Moves:</h5>
-          <ul>
-            <li *ngFor="let move of pokemon.moves">{{ move | titlecase }}</li>
-          </ul>
-        </div>
-        <div class="pokemon-ability">
-          <h5>Ability:</h5>
-          <span>{{ pokemon.ability | titlecase }}</span>
-        </div>
-        <div class="pokemon-item">
-          <h5>Item:</h5>
-          <span>{{ pokemon.item | titlecase }}</span>
-        </div>
-      </div>
-    </div>
+<div class="app-container">
+  <div class="menu-bar">
+    <nav>
+      <ul>
+        <li><a routerLink="/login">Logeo</a></li>
+        <li><a routerLink="/register">Registrarse</a></li>
+        <li><a routerLink="/teams">Equipos</a></li>
+        <li><a routerLink="/tournaments">Torneos</a></li>
+        <li><a routerLink="/match-viewer">Picks y Bans</a></li>
+      </ul>
+    </nav>
   </div>
 </div>
+
+<ion-row class="team-container" *ngFor="let team of teams">
+  <ion-col size="12">
+    <div class="team-header" (click)="toggleTeamDetails(team.id)">
+      <ion-icon name="arrow-down-outline" class="arrow-icon icon-large"></ion-icon>
+      <h3>{{ team.name | titlecase }}</h3>
+      <ion-row class="pokemon-row">
+        <ion-col *ngFor="let pokemon of team.pokemons">
+          <!-- Aumenta el tamaño de la imagen en un 400% -->
+          <img [src]="pokemon.image" alt="{{ pokemon.name | titlecase }} sprite" class="pokemon-image-extra-large">
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-col>
+  
+  <ion-col size="12" *ngIf="expandedTeamIndex === team.id">
+    <div class="pokemon-details">
+      <ion-row class="pokemon-detail-container" *ngFor="let pokemon of team.pokemons">
+        <ion-col size="3">
+          <!-- Nombre y tipo -->
+          <h4>{{ pokemon.name | titlecase }}</h4>
+          <div class="pokemon-types" *ngFor="let type of pokemon.type">
+            <ion-icon name="assets/icon/fire.svg" class="type-icon"></ion-icon>
+            <span>{{ type.name | titlecase }}</span>
+          </div>
+          <img [src]="pokemon.image" alt="{{ pokemon.name | titlecase }} image" class="pokemon-detail-image-extra-large">
+        </ion-col>
+        
+        <ion-col size="3" >
+          <!-- Estadísticas -->
+          <h5>Estadisticas base:</h5>
+          <ul>
+            <li class="pokemon-stats" *ngFor="let stat of pokemon.baseStats | keyvalue">{{ stat.key | titlecase }}: {{ stat.value }}</li>
+          </ul>
+        </ion-col>
+
+        <ion-col size="3" >
+          <!-- Movimientos -->
+          <h5>Movimientos:</h5>
+          <ul>
+            <li class="pokemon-moves" *ngFor="let move of pokemon.moves">{{ move | titlecase }}</li>
+          </ul>
+        </ion-col>
+
+        <ion-col size="3" >
+          <!-- Habilidad y Objeto -->
+            <h5>Habilidad:</h5>
+            <span class="pokemon-ability-item">{{ pokemon.ability | titlecase }}</span>
+            <h5>Objeto:</h5>
+            <span class="pokemon-ability-item">{{ pokemon.item.name | titlecase }}</span>
+            <img [src]="pokemon.item.sprite" alt="{{ pokemon.item.sprite | titlecase }} icon" class="pokemon-detail-image">
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-col>
+</ion-row>

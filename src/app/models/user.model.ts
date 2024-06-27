@@ -10,7 +10,7 @@ let lastGeneratedId = 0;
 export function createUserFromJson(jsonData: any): User {
   // Generar un nuevo ID único para el usuario
   const newId = ++lastGeneratedId;
-    debugger;
+    
   return {
     id: newId,
     username: jsonData[1],
