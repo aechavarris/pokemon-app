@@ -15,11 +15,13 @@ export class TeamEditorComponent implements OnInit {
   selectedTeam: Team | null = null;
   availablePokemon!: Pokemon[];
   selectedPokemon: Pokemon | null = null;
+  objects!: string[];
 
   constructor(private pokemonService: PokemonService, private teamService: TeamService) {}
 
   async ngOnInit() {
     this.pokemonService.getAllPokemon().subscribe(data => this.availablePokemon = data);
+    this.pokemonService.getEquipableItems().subscribe(data => this.objects = data);
     // Obtener equipos del usuario (puedes agregar lógica para obtener el ID del usuario actual)
   }
 

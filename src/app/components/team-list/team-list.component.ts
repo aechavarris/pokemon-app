@@ -39,6 +39,7 @@ export class TeamListComponent implements OnInit {
     const jsonData = utils.sheet_to_json(worksheet, { header: 1 });
 
     // Mapear el array de jsonData a un array de objetos Team
+    debugger;
     const teamPromises = jsonData.map((jsonData: any) => createTeamFromJson(jsonData, this.pokemonService));
 
     // Esperar a que todas las promesas se resuelvan usando Promise.all
@@ -55,7 +56,7 @@ export class TeamListComponent implements OnInit {
   }
 
   openTeam(team: Team){
-    this.router.navigate(['/teams']);
+    this.router.navigate(['/team-editor/{' + team.id + '}']);
   }
 
   fetchPokemonImages(): void {
@@ -76,6 +77,7 @@ export class TeamListComponent implements OnInit {
   }
 
   toggleTeamDetails(index: number): void {
+    debugger;
     if (this.expandedTeamIndex === index) {
       this.expandedTeamIndex = null;
     } else {
@@ -85,5 +87,9 @@ export class TeamListComponent implements OnInit {
 
   getDetailImageSize(): string {
     return '60%'; // Tamaño de imagen reducido al 60% del original
+  }
+  titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
   }
 }

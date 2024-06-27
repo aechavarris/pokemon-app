@@ -1,4 +1,5 @@
-import { Pokemon } from './pokemon.model'; // Asegúrate de importar el modelo de Pokemon
+import { PokemonService } from '../services/pokemon.service';
+import { Pokemon, createPokemonFromJson } from './pokemon.model'; // Asegúrate de importar el modelo de Pokemon
 let lastGeneratedTeamId = 0;
 export interface Team {
   user: string; // Ajusta el tipo según tu modelo de usuario
@@ -8,44 +9,18 @@ export interface Team {
 }
 
 // Implementa la exportación de createTeamFromJson
-export const createTeamFromJson = (jsonData: any, pokemonService: any): Promise<Team> => {
+export const createTeamFromJson = (jsonData: any, pokemonService: PokemonService): Promise<Team> => {
   return new Promise<Team>((resolve, reject) => {
     const newId = ++lastGeneratedTeamId;
     const teamName = jsonData[2];
     const user = jsonData[1]
     // Obtener los nombres de los Pokémon a partir de los índices 3 al 12 en jsonData
     const pokemonIndices = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // Índices de los nombres de los Pokémon
-    const pokemonNames = pokemonIndices.map(index => jsonData[index]);
+    const pokemonIds = pokemonIndices.map(index => jsonData[index]);
 
     // Obtener los Pokemon completos a partir de los nombres usando pokemonService
-    const pokemonPromises: Promise<Pokemon>[] = pokemonNames.map((name: string) => {
-      return new Promise<Pokemon>((resolve, reject) => {
-        pokemonService.getPokemonByName(name).subscribe(
-          (pokemonData: any) => {
-            const pokemon: Pokemon = {
-              id: pokemonData.id,
-              name: pokemonData.name,
-              type: pokemonData.type,
-              baseStats: { /* Define los stats base aquí */ },
-              ivs: { /* Define los IVs aquí */ },
-              evs: { /* Define los EVs aquí */ },
-              moves: pokemonData.moves.map( (move:any) => pokemonService.capitalizeFirstLetter(move)),
-              ability: pokemonData.abilities,
-              item: '' // Aquí puedes definir el ítem del Pokémon si es relevante
-              ,
-              sprites: {
-                front_default: pokemonData.sprites.front_default,
-                back_default: pokemonData.sprites.back_default
-              },
-              image: ''
-            };
-            resolve(pokemon);
-          },
-          (error: any) => {
-            reject(error);
-          }
-        );
-      });
+    const pokemonPromises: Promise<Pokemon>[] = pokemonIds.map((id: number) => {
+      return pokemonService.searchPokemonById(id);
     });
 
     Promise.all(pokemonPromises)

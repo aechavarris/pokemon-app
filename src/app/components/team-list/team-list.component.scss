@@ -1,55 +1,75 @@
-.team-container {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  .team-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-  
-  .team-header h3 {
-    margin: 0;
-  }
-  
-  .toggle-icon {
-    font-size: 20px;
-    transform: rotate(0deg);
-    transition: transform 0.3s ease;
-  }
-  
-  .toggle-icon.expanded {
-    transform: rotate(180deg);
-  }
-  
-  .team-details {
-    margin-top: 10px;
-  }
-  
-  .pokemon-details-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .pokemon-thumbnail {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-  }
-  
-  .pokemon-thumbnail img {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .pokemon-info {
-    flex: 1;
-  }
-  .arrow-icon {
-    font-size: 1.8rem; /* Aumenta el tamaño del icono en un 80% */
-    margin-right: 10px; /* Añade espacio a la derecha del icono */
-  }
+.team-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.arrow-icon {
+  font-size: 1.8rem; /* Aumenta el tamaño del icono */
+  margin-right: 10px; /* Espacio entre el icono y el texto del equipo */
+}
+
+h3 {
+  margin: 0; /* Elimina el margen predeterminado del título */
+  flex: 1; /* Hace que el título ocupe el espacio disponible */
+}
+
+.pokemon-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.pokemon-image {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+}
+
+.pokemon-details {
+  margin-left: 20px; /* Margen para alinear los detalles del Pokémon */
+}
+
+.pokemon-detail-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.pokemon-info {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-detail-image {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.pokemon-extra-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pokemon-types {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.pokemon-stats, .pokemon-moves, .pokemon-ability, .pokemon-item {
+  margin-bottom: 10px;
+}
+
+.pokemon-stats ul, .pokemon-moves ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
