@@ -20,7 +20,7 @@ export class TeamEditorComponent implements OnInit {
   async ngOnInit() {
     this.availablePokemon = await this.pokemonService.getAllPokemon();
     // Obtener equipos del usuario (puedes agregar lógica para obtener el ID del usuario actual)
-    this.teams = this.teamService.getTeams(1);
+    this.teams = this.teamService.getTeams();
   }
 
   selectTeam(team: Team) {
@@ -35,7 +35,7 @@ export class TeamEditorComponent implements OnInit {
 
   saveTeam() {
     if (this.selectedTeam) {
-      this.teamService.saveTeam(1, this.selectedTeam);
+      this.teamService.saveTeam(this.selectedTeam);
     }
   }
 }

@@ -9,7 +9,7 @@ import { Tournament, Match } from '../../models/tournament.model';
   styleUrls: ['./match-viewer.component.scss'],
 })
 export class MatchViewerComponent {
-  @Input() tournament: Tournament;
+  @Input() tournament!: Tournament;
 
   constructor(private tournamentService: TournamentService) {}
 

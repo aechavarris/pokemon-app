@@ -1,6 +1,6 @@
 // tournament.service.ts
 import { Injectable } from '@angular/core';
-import { Tournament } from './tournament.model';
+import { Tournament } from '../models/tournament.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,31 +1,54 @@
 // auth.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import * as XLSX from 'xlsx';
+import { User, createUserFromJson } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private users: any[] = [];
+  private users: User[] = [];
+ workbook!: XLSX.WorkBook;
 
-  constructor() {
-    this.loadUsers();
+  constructor(private http: HttpClient) {
+    this.loadExcelFile();
   }
 
-  loadUsers() {
-    const workbook = XLSX.readFile('users.xlsx');
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    this.users = XLSX.utils.sheet_to_json(sheet);
+  loadExcelFile() {
+    this.http.get('assets/data/pokemon_app_data.xlsx', { responseType: 'arraybuffer' })
+      .subscribe((data: ArrayBuffer) => {
+        this.processExcel(data);
+      }, error => {
+        console.error('Error al cargar el archivo Excel:', error);
+      });
+  }
+  
+  processExcel(data: ArrayBuffer) {
+    const workbook = XLSX.read(data, { type: 'array' });
+    const worksheet = workbook.Sheets['Users'];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    this.users = jsonData.map((jsonData: any) => createUserFromJson(jsonData));
+      console.log('Usuarios cargados desde JSON:', this.users);
+    console.log('Datos del archivo Excel:', jsonData);
+    // Aquí puedes procesar los datos del archivo Excel según tus necesidades
   }
 
-  login(username: string, password: string): boolean {
+  login(username: string, password: string): Observable<any> {
+    debugger;
     const user = this.users.find(u => u.username === username && u.password === password);
-    return !!user;
+    if (user) {
+      return of({ success: true, user });
+    } else {
+      return of({ success: false, message: 'Usuario o contraseña incorrectos' });
+    }
   }
 
-  register(username: string, password: string) {
-    this.users.push({ username, password });
-    this.saveUsers();
+  registerUser(newUserJson: any): void {
+    const newUser = createUserFromJson(newUserJson);
+    // Aquí podrías enviar el nuevo usuario a tu API o agregarlo a tu base de datos local
+    this.users.push(newUser); // Agregarlo localmente a la lista de usuarios
   }
 
   saveUsers() {

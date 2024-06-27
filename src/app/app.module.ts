@@ -14,6 +14,7 @@ import { TeamEditorComponent } from './components/team-editor/team-editor.compon
 import { TournamentListComponent } from './components/tournament-list/tournament-list.component';
 import { TournamentEditorComponent } from './components/tournament-editor/tournament-editor.component';
 import { MatchViewerComponent } from './components/match-viewer/match-viewer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,12 @@ import { MatchViewerComponent } from './components/match-viewer/match-viewer.com
     TournamentEditorComponent,
     MatchViewerComponent,
   ],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    HttpClientModule 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
