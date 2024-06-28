@@ -28,7 +28,13 @@ export const createTeamFromJson = (jsonData: any, pokemonService: PokemonService
         
         // Obtener el item equipable del Pokémon
         const item: any = (await pokemonService.getItemByName(poke.item));
-        
+        const moves: any[] = (await pokemonService.getMovesDetailsByNames(
+          poke.moves.map(move => move.name.replace(/ /g, '-'))
+        )).map(move => ({
+          ...move,
+          name: move.name.replace(/-/g, ' ')  // Sustituir guiones por espacios en blanco
+        }));
+        debugger;
         // Combinar la información obtenida del getPokemonByName con el searchPokemonById
         poke.type = [];
         pokeApi.type.forEach((type : any) =>{
@@ -37,7 +43,7 @@ export const createTeamFromJson = (jsonData: any, pokemonService: PokemonService
         poke.image = pokeApi.image;
         poke.sprites = pokeApi.sprites;
         poke.item = ({name:item.name.replace('-', ' '), sprite:item.sprites.default}); // Asignar el item equipable
-        
+        poke.moves = moves;
         return poke;
       } catch (error) {
         console.error('Error obteniendo Pokémon:', error);

@@ -6,6 +6,8 @@ import { read, utils } from 'xlsx';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Observable, catchError, map } from 'rxjs';
 @Component({
   selector: 'app-team-list',
   templateUrl: './team-list.component.html',
@@ -17,7 +19,28 @@ export class TeamListComponent implements OnInit {
   expandedPokemonDetails: any[] = [];
   pokemonImages: string[] = [];
   expandedTeamIndex: number | null = null;
-  constructor(private http: HttpClient, private router: Router, private pokemonService: PokemonService) {
+  pokemonTypes: { name: string }[] = [
+    { name: 'normal' },
+    { name: 'fire' },
+    { name: 'water' },
+    { name: 'electric' },
+    { name: 'grass' },
+    { name: 'ice' },
+    { name: 'fighting' },
+    { name: 'poison' },
+    { name: 'ground' },
+    { name: 'flying' },
+    { name: 'psychic' },
+    { name: 'bug' },
+    { name: 'rock' },
+    { name: 'ghost' },
+    { name: 'dragon' },
+    { name: 'dark' },
+    { name: 'steel' },
+    { name: 'fairy' }
+  ];
+  typeImageUrls: { name: string, url: Observable<SafeResourceUrl> }[] = [];
+  constructor(private http: HttpClient, private router: Router, private pokemonService: PokemonService,private _sanitizer: DomSanitizer) {
     this.loadExcelFile();
   }
   ngOnInit(): void {
@@ -47,7 +70,7 @@ export class TeamListComponent implements OnInit {
         
         this.teams = teams; // Asignar los equipos resueltos a this.teams
         console.log('Equipos cargados desde JSON:', this.teams);
-        this.fetchPokemonImages(); // Llamar a fetchPokemonImages después de cargar los equipos
+        this.fetchPokemonImages();
       })
       .catch((error) => {
         console.error('Error creando equipos:', error);
@@ -94,5 +117,21 @@ export class TeamListComponent implements OnInit {
 
   getIonIconName(typeName: string): string {
     return `src/assets/icon/${typeName.toLowerCase()}.svg`;
+  }
+
+  getSVGImageUrl(typeName: string): Observable<SafeResourceUrl> {
+    const svgUrl = `/assets/icon/${typeName}.svg`;
+
+    return this.http.get(svgUrl, { responseType: 'text' }).pipe(
+      map(svg => {
+        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+      }),
+      catchError(err => {
+        console.error('Error loading SVG:', err);
+        throw err;
+      })
+    );
   }
 }

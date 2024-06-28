@@ -1,0 +1,5 @@
+<div class="pokemon-types">
+  <div *ngFor="let type of types" class="type-icon-container">
+    <img [src]="getSVGUrl(type.name)" [alt]="type.name" [ngClass]="'type-icon ' + type.name">
+  </div>
+</div>

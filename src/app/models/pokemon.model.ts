@@ -2,6 +2,7 @@ import { PokemonService } from "../services/pokemon.service";
 import { Item } from "./item.model";
 import { Team } from "./team.model";
 import { Type } from "./type.model";
+import { Move } from "./type.model copy";
 
 // pokemon.model.ts
 export interface Pokemon {
@@ -9,7 +10,7 @@ export interface Pokemon {
   name: string;
   type: Type[];
   baseStats: { [key: string]: number };
-  moves: string[];
+  moves: Move[];
   ability: string;
   item: any;
   sprites: {
@@ -36,7 +37,7 @@ export interface Pokemon {
   };
 
   // Extraer movimientos
-  const moves = [jsonData[11], jsonData[12], jsonData[13], jsonData[14]];
+  const moves = [({name: jsonData[11], type:{}}) as Move, ({name: jsonData[12], type:{}}) as Move, ({name: jsonData[13], type:{}}) as Move, ({name: jsonData[14], type:{}}) as Move];
     const newPokemon: Pokemon = {
       id: jsonData[0],
       name: jsonData[1],

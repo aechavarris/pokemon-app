@@ -15,6 +15,7 @@ import { TournamentListComponent } from './components/tournament-list/tournament
 import { TournamentEditorComponent } from './components/tournament-editor/tournament-editor.component';
 import { MatchViewerComponent } from './components/match-viewer/match-viewer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PokemonTypesComponent } from './components/pokemon-types-component/pokemon-types.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     TournamentListComponent,
     TournamentEditorComponent,
     MatchViewerComponent,
+    PokemonTypesComponent
   ],
   imports: [
     BrowserModule,

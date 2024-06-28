@@ -8,6 +8,7 @@ import { read, utils } from 'xlsx';
 import { createTeamFromJson, Team } from '../models/team.model';
 import { Injectable } from '@angular/core';
 import { Item } from '../models/item.model';
+import { Move } from '../models/type.model copy';
 
 @Injectable({
   providedIn: 'root',
@@ -122,6 +123,37 @@ export class PokemonService {
       );
   }
 
+  private async getMoveByName(name: string): Promise<any> {
+    const url = `${this.baseUrl}/move/${name}`;
+    const params = new HttpParams().set('language', 'es');
+
+    try {
+      const moveData = await this.http.get<any>(url, { params }).toPromise();
+      return moveData;
+    } catch (error) {
+      console.error(`Error al obtener el movimiento ${name}`, error);
+      throw error;
+    }
+  }
+  
+  async getMovesDetailsByNames(moveNames: string[]): Promise<any[]> {
+    try {
+      const movesDetails: any[] = [];
+
+      await Promise.all(
+        moveNames.map(async (name) => {
+          const moveData = await this.getMoveByName(name.toLowerCase());
+          movesDetails.push(moveData);
+        })
+      );
+
+      return movesDetails;
+    } catch (error) {
+      console.error('Error al obtener detalles de los movimientos', error);
+      throw error;
+    }
+  }
+  
   getPokemonAbilities(pokemonId: number): Observable<any> {
     const url = `${this.baseUrl}/pokemon/${pokemonId}/abilities`;
     const params = new HttpParams().set('language', 'es');
