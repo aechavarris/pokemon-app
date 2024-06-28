@@ -10,7 +10,6 @@ npm install
 npm ci
 ionic build
 ionic s
+<!-- IMPORTANTE
+Sera necesario tener instalado el entorno de paquetes Node Version Manager, cualquier version ya que es quien va a instalar Node.js y Node.js instalara la app. -->
 
-
-IMPORTANTE
-Sera necesario tener instalado el entorno de paquetes Node Version Manager, cualquier version ya que es quien va a instalar Node.js y Node.js instalara la app.
