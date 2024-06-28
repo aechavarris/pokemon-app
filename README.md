@@ -15,5 +15,6 @@ ionic build
 ionic s
 ```
 IMPORTANTE
-Sera necesario tener instalado el entorno de paquetes Node Version Manager, cualquier version ya que es quien va a instalar Node.js y Node.js instalara la app. -->
+Sera necesario tener instalado el entorno de paquetes Node Version Manager, cualquier version ya que es quien va a instalar Node.js y Node.js instalara la app. 
+Para instalar git, si quereis ejecutar el git clone aqui -> https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe
 
