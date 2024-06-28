@@ -1,0 +1,154 @@
+/* Estilos para el contenedor principal de la aplicación */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Estilos para la barra de menú */
+.menu-bar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.menu-bar nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-bar nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.menu-bar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.menu-bar nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el contenedor de contenido principal */
+.content-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Añade scroll vertical si el contenido excede el tamaño del contenedor */
+  background-color: #f0f0f0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+/* Estilos para el encabezado de cada equipo */
+.team-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-bottom: 10px; /* Aumenta el espacio entre equipos */
+}
+
+.team-header h3 {
+  margin: 0;
+}
+
+.pokemon-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.pokemon-image-extra-large {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+/* Estilos para los detalles de cada Pokémon */
+.pokemon-details {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.pokemon-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pokemon-detail-container ion-col {
+  margin-bottom: 10px;
+}
+.pokemon-detail-image{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.pokemon-detail-image-extra-large {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Estilos para los tipos de Pokémon */
+.pokemon-types {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+/* Estilos para las estadísticas, movimientos, habilidades y objetos */
+.pokemon-stats,
+.pokemon-ability-item {
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Añade borde alrededor de las estadísticas y movimientos */
+  padding: 10px; /* Añade espacio interno */
+  border-radius: 5px; /* Añade esquinas redondeadas */
+  max-width: 150px;
+}
+
+.pokemon-stats ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-width: 150px;
+}
+
+.pokemon-moves {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pokemon-moves .move-name {
+  margin-right: 10px;
+}
+
+.move-type {
+  display: flex;
+  align-items: center;
+}
+
+.move-type img {
+  width: 20px; /* Ajusta el tamaño de los iconos si es necesario */
+  height: 20px;
+  margin-left: 5px;
+}

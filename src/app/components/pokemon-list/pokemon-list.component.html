@@ -1,0 +1,27 @@
+<!-- src/app/components/pokemon-list/pokemon-list.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Pokémon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let pokemon of pokemons" (click)="selectPokemon(pokemon.name)">
+      {{ pokemon.name | titlecase }}
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="selectedPokemon">
+    <h2>{{ selectedPokemon.name | titlecase }}</h2>
+    <img [src]="selectedPokemon.sprites.front_default" alt="{{ selectedPokemon.name }}">
+    <p>Tipos: {{ selectedPokemon.types.map(type => type.type.name).join(', ') }}</p>
+    <p>Habilidades: {{ selectedPokemon.abilities.map(ability => ability.ability.name).join(', ') }}</p>
+    <p>Estadísticas base:</p>
+    <ul>
+      <li *ngFor="let stat of selectedPokemon.stats">
+        {{ stat.stat.name | titlecase }}: {{ stat.base_stat }}
+      </li>
+    </ul>
+  </div>
+</ion-content>

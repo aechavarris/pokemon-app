@@ -1,0 +1,32 @@
+<!-- src/app/components/team-editor/team-editor.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editor de Equipos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      {{ team.name }}
+  </ion-list>
+
+  <div *ngIf="selectedTeam">
+    <h2>{{ selectedTeam.name }}</h2>
+    <ion-list>
+      <ion-item *ngFor="let pokemon of selectedTeam.pokemons">
+        {{ pokemon.name | titlecase }}
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>Agregar Pokémon</ion-label>
+      <ion-select (ionChange)="addPokemonToTeam($event.detail.value)">
+        <ion-select-option *ngFor="let pokemon of availablePokemon" [value]="pokemon">
+          {{ pokemon.name | titlecase }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button (click)="saveTeam()">Guardar Equipo</ion-button>
+  </div>
+</ion-content>
