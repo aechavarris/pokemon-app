@@ -1,5 +1,5 @@
 Buenas mi gente.
-Tras clonar el repositorio con cualquier entorno o 'git clone https://github.com/aechavarris/pokemon-app.git, podeis lanzar la aplicacion con los sigueinte comandos.
+Tras clonar el repositorio con cualquier entorno o 'git clone https://github.com/aechavarris/pokemon-app.git, podeis lanzar la aplicacion con los siguientes comandos.
 
 ***********************************************************
 nvm install 18.20.3
