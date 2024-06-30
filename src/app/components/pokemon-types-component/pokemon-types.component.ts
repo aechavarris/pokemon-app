@@ -1,8 +1,5 @@
-import { Component, Input, OnInit, Sanitizer } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Type } from 'src/app/models/type.model';
-import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Type, Weakness } from 'src/app/models/type.model';
 
 @Component({
   selector: 'app-pokemon-types',
@@ -10,24 +7,48 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./pokemon-types.component.scss']
 })
 export class PokemonTypesComponent implements OnInit {
-  @Input() types: Type[] = []; // Se espera recibir una lista de tipos de Pokémon
+  @Input() types: Type[] = [];
+  @Input() weaknesses: Weakness[] = [];
 
-  typeImageUrls: { name: string, url: Observable<SafeResourceUrl> }[] = [];
+  // Definir las categorías de debilidades según los valores deseados (4, 2, 0.5, 0.25, 0)
+  weaknessCategories = [4, 2, 0.5, 0.25, 0];
 
-  constructor(private http: HttpClient, private _sanitizer: DomSanitizer) {}
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  shouldDisplayWeaknesses(): boolean {
+    return this.weaknesses && this.weaknesses.length > 0;
   }
 
-  getSVGUrl(typeName: string): SafeResourceUrl {
-    return this.getSVGImageUrl(typeName);
+  hasWeaknessesInCategory(value: number): boolean {
+    return this.weaknesses.some(weakness => weakness.weakness === value);
   }
-  
-  getSVGImageUrl(typeName: string): SafeResourceUrl {
-    const svgUrl = `assets/icon/${typeName}.svg`;
 
-    // Crear una URL segura para el SVG
-    const url = this._sanitizer.bypassSecurityTrustResourceUrl(svgUrl);
-    return url;
+  getWeaknessValue(value: number): string {
+    if (value === 4) return '4';
+    if (value === 2) return '2';
+    if (value === 0.5) return '0.5';
+    if (value === 0.25) return '0.25';
+    if (value === 0) return '0';
+    return '';
+  }
+
+  getSVGUrl(typeName: string): string {
+    return `assets/icon/${typeName}.svg`;
+  }
+}
+@Pipe({
+  name: 'getWeaknessesInCategory'
+})
+export class GetWeaknessesInCategoryPipe implements PipeTransform {
+  transform(weaknesses: any[], category: any): any[] {
+    // Implementa la lógica para filtrar las debilidades según la categoría
+    if (!weaknesses || weaknesses.length === 0 || !category) {
+      return [];
+    }
+
+    // Ejemplo de implementación básica, ajusta según tu estructura de datos
+    return weaknesses.filter(weakness => weakness.category === category);
   }
 }

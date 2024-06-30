@@ -1,15 +1,15 @@
 .pokemon-types {
     display: flex; /* Mostrar los iconos en línea */
-    align-items: center; /* Alinear verticalmente los iconos */
+    align-items: left; /* Alinear verticalmente los iconos */
   }
   
   .type-icon-container {
-    margin-right: 5px; /* Espacio entre los iconos */
+    margin-right: 5px; /* Espacio horizontal a la derecha de cada icono */
   }
   
   .type-icon {
-    width: 30px; /* Tamaño 40% más pequeño que el original */
-    height: 30px; /* Tamaño 40% más pequeño que el original */
+    width: 25px; /* Tamaño 40% más pequeño que el original */
+    height: 25px; /* Tamaño 40% más pequeño que el original */
   }
   
 
@@ -102,3 +102,69 @@
     background: #539DDF;
     box-shadow: 0 0 20px #539DDF;
 }
+
+.pokemon-types {
+    display: flex; /* Mostrar los iconos en línea */
+    align-items: center; /* Alinear verticalmente los iconos */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en varias líneas */
+  }
+  
+  .type-icon-container {
+    margin-right: 5px; /* Espacio horizontal a la derecha de cada icono */
+  }
+  
+  .type-icon {
+    width: 25px; /* Tamaño 40% más pequeño que el original */
+    height: 25px; /* Tamaño 40% más pequeño que el original */
+  }
+  
+  .weakness-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .weakness-category {
+    text-align: center;
+    width: 100%; /* Ajustar el ancho de cada categoría según diseño */
+  }
+  
+  .weakness-row {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .weakness-factor-container {
+    margin-right: 10px;
+    font-size: 14px; /* Tamaño de la fuente del número de debilidad */
+    font-weight: bold;
+    flex: 1;
+    max-width: 30px;
+  }
+  
+  .weakness-factor{
+    margin-right:auto;
+    flex: 1;
+  }
+
+  .type-icons-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .weakness-icon-container {
+    margin-right: 5px; /* Espacio horizontal a la derecha de cada icono */
+  }
+  
+  .type-icon {
+    width: 25px; /* Tamaño 40% más pequeño que el original */
+    height: 25px; /* Tamaño 40% más pequeño que el original */
+  }
+  
+  
+  
+  
+  
+  

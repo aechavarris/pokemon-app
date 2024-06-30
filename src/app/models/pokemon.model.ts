@@ -1,8 +1,9 @@
 import { PokemonService } from "../services/pokemon.service";
 import { Item } from "./item.model";
 import { Team } from "./team.model";
-import { Type } from "./type.model";
-import { Move } from "./type.model copy";
+import { Type, Weakness } from "./type.model";
+import { Move } from "./move.model";
+import { Ability } from "./ability.model";
 
 // pokemon.model.ts
 export interface Pokemon {
@@ -11,7 +12,7 @@ export interface Pokemon {
   type: Type[];
   baseStats: { [key: string]: number };
   moves: Move[];
-  ability: string;
+  ability: Ability;
   item: any;
   sprites: {
     front_default: string; // Sprite frontal por defecto
@@ -19,6 +20,7 @@ export interface Pokemon {
     // Puedes agregar más sprites según necesites
   };
   image: string;
+  weakness: Weakness[]
   }
   export const createPokemonFromJson = (jsonData: any): Pokemon => {
     const types = [jsonData[2]];
@@ -44,10 +46,15 @@ export interface Pokemon {
       type: types,
       baseStats: baseStats,
       moves: moves,
-      ability: jsonData[10],
+      ability: {
+        name: jsonData[10],
+        id: 0,
+        effect_entries: []
+      },
       item: jsonData[15],
       sprites: {front_default:'',back_default:''},
-      image: "" // Inicialmente vacío, se llenará más tarde con la llamada a la API
+      image: "",
+      weakness: []
     };
     return newPokemon;
   }

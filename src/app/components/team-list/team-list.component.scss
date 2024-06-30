@@ -3,8 +3,11 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #f0f2f5; /* Cambio de color de fondo a tonos azules/grisáceos */
+  padding: 10px;
+  max-width: 1200px; /* Ajuste del ancho máximo */
+  margin: 0 auto; /* Centrado horizontal */
 }
-
 /* Estilos para la barra de menú */
 .menu-bar {
   background-color: #333;
@@ -32,15 +35,16 @@
 .menu-bar nav ul li a:hover {
   text-decoration: underline;
 }
-
 /* Estilos para el contenedor de contenido principal */
 .content-container {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto; /* Añade scroll vertical si el contenido excede el tamaño del contenedor */
-  background-color: #f0f0f0;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f0f2f5; /* Mismo color de fondo que el contenedor principal */
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+  min-width: 1000px;
+  max-width: 1000px;
 }
 
 /* Estilos para el encabezado de cada equipo */
@@ -50,27 +54,33 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: #dfe4ea; /* Color de fondo del encabezado del equipo */
   border: 1px solid #ccc;
-  margin-bottom: 10px; /* Aumenta el espacio entre equipos */
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-.team-header h3 {
-  margin: 0;
+.team-header .arrow-icon {
+  margin-right: 10px; /* Espacio entre el icono y el nombre del equipo */
+}
+
+.team-name {
+  margin-right: auto; /* Elimina el margen predeterminado del h3 */
 }
 
 .pokemon-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top: 5px;
+  justify-content: space-between; /* Distribución de los Pokémon */
+  margin-top: 10px;
 }
 
 .pokemon-image-extra-large {
-  width: 160px;
-  height: 160px;
+  width: calc(50% - 10px); /* Calcula el ancho para mostrar 2 Pokémon por fila */
+  min-width: 200px; /* Ancho máximo de la imagen del Pokémon */
+  height: auto;
   object-fit: cover;
-  margin-right: 5px;
+  margin-bottom: 10px;
 }
 
 /* Estilos para los detalles de cada Pokémon */
@@ -85,19 +95,18 @@
 .pokemon-detail-container {
   display: flex;
   flex-wrap: wrap;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .pokemon-detail-container ion-col {
   margin-bottom: 10px;
 }
-.pokemon-detail-image{
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
+
 .pokemon-detail-image-extra-large {
-  width: 240px;
-  height: 240px;
+  width: 120px; /* Tamaño más reducido de la imagen del Pokémon */
+  height: 120px;
   object-fit: cover;
   margin-bottom: 10px;
 }
@@ -118,11 +127,8 @@
 /* Estilos para las estadísticas, movimientos, habilidades y objetos */
 .pokemon-stats,
 .pokemon-ability-item {
-  margin-bottom: 10px;
-  border: 1px solid #ccc; /* Añade borde alrededor de las estadísticas y movimientos */
-  padding: 10px; /* Añade espacio interno */
-  border-radius: 5px; /* Añade esquinas redondeadas */
   max-width: 150px;
+  font-size: 13px;
 }
 
 .pokemon-stats ul {
@@ -139,7 +145,26 @@
 }
 
 .pokemon-moves .move-name {
+  margin-right: 30px;
+  font-size: 13px;
+}
+
+.move-info {
+  display: flex;
+  align-items: center;
   margin-right: 10px;
+}
+
+.move-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.move-pp {
+  flex: 1;
+  max-width: 50px;
+  margin-right: 10px;
+  font-size: 13px;
 }
 
 .move-type {
@@ -148,7 +173,70 @@
 }
 
 .move-type img {
-  width: 20px; /* Ajusta el tamaño de los iconos si es necesario */
+  width: 20px;
   height: 20px;
   margin-left: 5px;
+}
+
+.pokemon-info {
+  margin-bottom: 30px;
+}
+
+.move-details {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.move-power-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.move-power {
+  margin-right: 5px;
+}
+
+.pokemon-item {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-detail-image {
+  width: 40px;
+  object-fit: cover;
+}
+
+.pokemon-ability-item {
+  margin-left: 5px;
+}
+
+.stat-bar-chart {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin-top: 10px;
+}
+
+.stat-bar {
+  height: 14px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff;
+  font-size: 12px;
+  padding-right: 5px;
+}
+
+.stat-label {
+  padding-left: 5px;
+}
+
+.stat-key {
+  max-width: 40px;
+  margin-bottom: 10px;
+  font-size: 12px;
 }

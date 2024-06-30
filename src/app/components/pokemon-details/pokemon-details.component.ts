@@ -37,15 +37,6 @@ export class PokemonDetailsComponent implements OnInit {
       }
     );
 
-    this.pokemonService.getPokemonMoves(this.pokemonId).subscribe(
-      movesData => {
-        this.moves = movesData;
-      },
-      error => {
-        console.error('Error al obtener movimientos del Pokémon', error);
-      }
-    );
-
     this.pokemonService.getPokemonAbilities(this.pokemonId).subscribe(
       abilitiesData => {
         this.abilities = abilitiesData;
@@ -55,7 +46,7 @@ export class PokemonDetailsComponent implements OnInit {
       }
     );
 
-    this.pokemonService.getEquipableItems().subscribe(
+    this.pokemonService.getEquipableItems().then(
       itemsData => {
         this.equipableItems = itemsData;
       },

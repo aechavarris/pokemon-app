@@ -1,4 +1,5 @@
 <div class="app-container">
+  <!-- Menú y barra de navegación -->
   <div class="menu-bar">
     <nav>
       <ul>
@@ -11,52 +12,79 @@
     </nav>
   </div>
 
+  <!-- Contenido principal -->
   <div class="content-container">
-    <ion-row class="team-container" *ngFor="let team of teams">
+    <!-- Iterar sobre los equipos -->
+     <h3>Listado de equipos</h3>
+    <ion-row class="team-container" *ngFor="let team of teams; let i = index">
       <ion-col size="12">
-        <div class="team-header" (click)="toggleTeamDetails(team.id)">
+        <div class="team-header" (click)="toggleTeamDetails(i)">
           <ion-icon name="arrow-down-outline" class="arrow-icon icon-large"></ion-icon>
-          <h3>{{ team.name | titlecase }}</h3>
+          <h3 class="team-name">{{ team.name | titlecase }}</h3>
+          <!-- Mostrar imágenes de los Pokémon en el header del equipo -->
           <ion-row class="pokemon-row">
             <ion-col *ngFor="let pokemon of team.pokemons">
-              <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name | titlecase }} sprite" class="pokemon-image-large">
+              <img class="pokemon-detail-image" *ngIf="pokemon.image" [src]="pokemon.image" alt="{{ pokemon.name | titlecase }} sprite">
             </ion-col>
           </ion-row>
         </div>
       </ion-col>
       
-      <ion-col size="12" *ngIf="expandedTeamIndex === team.id">
+
+      <!-- Detalles expandidos del equipo -->
+      <ion-col size="12" *ngIf="expandedTeamIndex === i">
         <div class="pokemon-details">
+          <!-- Iterar sobre los detalles de cada Pokémon del equipo -->
           <ion-row class="pokemon-detail-container" *ngFor="let pokemon of team.pokemons">
-            <ion-col size="3">
-              <h4>{{ pokemon.name | titlecase }}</h4>
-              <app-pokemon-types [types]="pokemon.type"></app-pokemon-types>
-              <img [src]="pokemon.image" alt="{{ pokemon.name | titlecase }} image" class="pokemon-detail-image-extra-large">
+            <ion-col size="2">
+              <div class="pokemon-info" style="margin-bottom: 10px;">
+                <h4 style="margin-top: -10px">{{ pokemon.name | titlecase }}</h4>
+                <app-pokemon-types [types]="pokemon.type" style="margin-bottom: 5px;"></app-pokemon-types>
+                <img class="pokemon-image-extra-large" *ngIf="pokemon.sprites.front_default" [src]="pokemon.sprites.back_default" alt="{{ pokemon.name | titlecase }} image">
+              </div>
             </ion-col>
-            
+
             <ion-col size="3">
-              <h5>Estadísticas base:</h5>
-              <ul>
-                <li class="pokemon-stats" *ngFor="let stat of pokemon.baseStats | keyvalue">{{ stat.key | titlecase }}: {{ stat.value }}</li>
-              </ul>
+              <h5 style="margin-top: 50px">Estadísticas base</h5>
+              <div class="stat-bar-chart">
+                <div class="stat-bar-wrapper" *ngFor="let stat of pokemon.baseStats | keyvalue">
+                  <ion-row style="max-height: 25px;">
+                    <div class="stat-bar"
+                         [style.width.%]="stat.value / 2"
+                         [style.backgroundColor]="getStatColor(stat.value)">
+                      <span>{{ stat.value }}</span>
+                    </div>
+                    <ion-col class="stat-key">{{ stat.key | titlecase }}</ion-col>
+                  </ion-row>
+                </div>
+              </div>
             </ion-col>
-    
-            <ion-col size="3">
-              <h5>Movimientos:</h5>
+
+            <ion-col size="4">
+              <h5 style="margin-top: 50px">Movimientos</h5>
               <ul>
                 <li class="pokemon-moves" *ngFor="let move of pokemon.moves">
-                  <span class="move-name">{{ move.name | titlecase }}</span>
-                  <app-pokemon-types [types]="[move.type]" class="move-type-small"></app-pokemon-types>
+                  <app-pokemon-types [types]="[move.type]"></app-pokemon-types>
+                  <span class="move-details" [title]="move.effect_entries[0].effect">
+                    <span class="move-pp">{{ move.pp }} / {{ move.pp }}</span>
+                    <span class="move-name">{{ move.name | titlecase }}</span>
+                  </span>
+                  <img [src]="move.power ? physicalAttackIconUrl : statusIconUrl" class="move-icon" width="30px" height="30px"/>
+                  <span class="move-power">{{ move.power ? move.power : '—' }}</span>
                 </li>
               </ul>
             </ion-col>
-    
+
             <ion-col size="3">
-              <h5>Habilidad:</h5>
-              <span class="pokemon-ability-item">{{ pokemon.ability | titlecase }}</span>
-              <h5>Objeto:</h5>
-              <span class="pokemon-ability-item">{{ pokemon.item.name | titlecase }}</span>
-              <img [src]="pokemon.item.sprite" alt="{{ pokemon.item.name | titlecase }} icon" class="pokemon-detail-image">
+              <h5 style="margin-top: 50px">Habilidad</h5>
+              <span class="pokemon-ability-item" *ngIf="pokemon.ability" [(title)]="pokemon.ability.effect_entries[0].effect">{{ pokemon.ability.name | titlecase }}</span>
+              <h5>Objeto</h5>
+              <div class="pokemon-item">
+                <span class="pokemon-ability-item" *ngIf="pokemon.item" [(title)]="pokemon.item.effect_entries[0].effect">{{ pokemon.item.name | titlecase }}</span>
+                <img *ngIf="pokemon.item.sprites" [src]="pokemon.item.sprites.default" class="pokemon-detail-image" [(title)]="pokemon.item.effect_entries[0].effect">
+              </div>
+              <h5>Debilidades</h5>
+              <app-pokemon-types [weaknesses]="pokemon.weakness"></app-pokemon-types>
             </ion-col>
           </ion-row>
         </div>

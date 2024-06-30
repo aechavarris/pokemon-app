@@ -27,7 +27,7 @@ import { PokemonTypesComponent } from './components/pokemon-types-component/poke
     TournamentListComponent,
     TournamentEditorComponent,
     MatchViewerComponent,
-    PokemonTypesComponent
+    PokemonTypesComponent,
   ],
   imports: [
     BrowserModule,

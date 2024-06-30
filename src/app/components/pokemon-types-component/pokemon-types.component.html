@@ -1,5 +1,28 @@
 <div class="pokemon-types">
-  <div *ngFor="let type of types" class="type-icon-container">
-    <img [src]="getSVGUrl(type.name)" [alt]="type.name" [ngClass]="'type-icon ' + type.name">
+  <!-- Mostrar debilidades organizadas -->
+  <div *ngIf="shouldDisplayWeaknesses(); else typesDisplay" class="weakness-container">
+    <ng-container *ngFor="let weaknessCategory of weaknessCategories">
+      <div class="weakness-category" *ngIf="hasWeaknessesInCategory(weaknessCategory)">
+        <div class="weakness-row">
+          <!-- Mostrar número de debilidad al inicio de la fila -->
+          <div class="weakness-factor-container">
+            <span class="weakness-factor">{{ getWeaknessValue(weaknessCategory) }}</span>
+          </div>
+          <!-- Mostrar iconos de tipo a continuación -->
+          <ng-container *ngFor="let weakness of weaknesses">
+            <div *ngIf="weakness.weakness === weaknessCategory" class="type-icon-container">
+              <img [src]="getSVGUrl(weakness.type.name)" [alt]="weakness.type.name" [ngClass]="'type-icon ' + weakness.type.name">
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
   </div>
+
+  <!-- Mostrar tipos normales si no se muestran debilidades -->
+  <ng-template #typesDisplay>
+    <div *ngFor="let type of types" class="type-icon-container">
+      <img [src]="getSVGUrl(type.name)" [alt]="type.name" [ngClass]="'type-icon ' + type.name">
+    </div>
+  </ng-template>
 </div>
