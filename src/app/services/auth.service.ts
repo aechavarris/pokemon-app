@@ -1,4 +1,3 @@
-// auth.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
@@ -33,9 +32,8 @@ export class AuthService {
     const workbook = XLSX.read(data, { type: 'array' });
     const worksheet = workbook.Sheets['Users'];
     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    this.users = jsonData.map((jsonData: any) => createUserFromJson(jsonData));
+    this.users = jsonData.map((json: any) => createUserFromJson(json));
     console.log('Usuarios cargados desde JSON:', this.users);
-    console.log('Datos del archivo Excel:', jsonData);
   }
 
   login(username: string, password: string): Observable<any> {
@@ -52,6 +50,7 @@ export class AuthService {
   registerUser(newUserJson: any): void {
     const newUser = createUserFromJson(newUserJson);
     this.users.push(newUser); // Agregarlo localmente a la lista de usuarios
+    this.saveUsers(); // Guardar los usuarios en el archivo Excel
   }
 
   saveUsers() {
@@ -68,7 +67,7 @@ export class AuthService {
   private loadLoggedUserFromLocalStorage(): void {
     const userJson = localStorage.getItem('loggedUser');
     if (userJson) {
-      const user = JSON.parse(userJson);
+      const user = JSON.parse(userJson) as User;
       this.loggedUserSubject.next(user);
     }
   }

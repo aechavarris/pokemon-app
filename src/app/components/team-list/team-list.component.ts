@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { Team, createTeamFromJson } from '../../models/team.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TeamService } from 'src/app/services/team.service';
 
 @Component({
   selector: 'app-team-list',
@@ -24,86 +25,16 @@ export class TeamListComponent implements OnInit {
     private http: HttpClient,
     private pokemonService: PokemonService,
     private _sanitizer: DomSanitizer,
-    private authService: AuthService
+    private authService: AuthService,
+    private teamService: TeamService
   ) {
     this.physicalAttackIconUrl = this._sanitizer.bypassSecurityTrustResourceUrl('assets/icon/power.png');
     this.statusIconUrl = this._sanitizer.bypassSecurityTrustResourceUrl('assets/icon/status.png');
   }
 
-  ngOnInit(): void {
-    this.loadExcelFile();
-  }
-
-  loadExcelFile() {
-    this.http.get('assets/data/pokemon_app_data.xlsx', { responseType: 'arraybuffer' })
-      .subscribe((data: ArrayBuffer) => {
-        this.authService.loggedUser$.subscribe(user => {
-          this.loggedUser = user;
-          if (this.loggedUser) {
-            this.processExcel(data);
-          } else {
-            console.error('Usuario no logueado.');
-          }
-        });
-      }, error => {
-        console.error('Error al cargar el archivo Excel:', error);
-      });
-  }
-
-  processExcel(data: ArrayBuffer) {
-    const workbook = read(data, { type: 'array' });
-    const worksheet = workbook.Sheets['Teams'];
-    const jsonData = utils.sheet_to_json(worksheet, { header: 1 });
-
-    if (!this.loggedUser) {
-      console.error('Usuario no logueado.');
-      return;
-    }
-    const teamsForUser = jsonData.filter((json: any) => json[1] === this.loggedUser!.id);
-    const teamPromises = teamsForUser.map((jsonData: any) => createTeamFromJson(jsonData, this.pokemonService));
-
-    Promise.all(teamPromises)
-      .then((teams: Team[]) => {
-        this.teams = teams;
-        console.log('Equipos cargados desde JSON:', this.teams);
-        this.fetchPokemonDetails();
-      })
-      .catch((error) => {
-        console.error('Error creando equipos:', error);
-      });
-  }
-
-  fetchPokemonDetails(): void {
-    this.teams.forEach(team => {
-      team.pokemons.map(async pokemon => {
-        const promises: Promise<any>[] = [];
-        const imagePromise = this.pokemonService.getPokemonByName(pokemon.name)
-          .then(pokemonData => {
-            pokemon.image = pokemonData.sprites.front_default;
-          })
-          .catch(error => {
-            console.error(`Error al obtener imagen de ${pokemon.name}`, error);
-          });
-
-        const itemPromise = this.pokemonService.getItemByName(pokemon.item.name)
-          .then(item => {
-            pokemon.item = item;
-          })
-          .catch(error => {
-            console.error(`Error al obtener objeto de ${pokemon.name}`, error);
-          });
-
-        promises.push(imagePromise, itemPromise);
-
-        await Promise.all(promises)
-          .then(() => {
-            console.log('Detalles cargados:', this.teams);
-          })
-          .catch(error => {
-            console.error('Error al cargar detalles de los Pokémon:', error);
-          });
-      });
-    });
+  async ngOnInit(): Promise<void> {
+    this.teams = await this.teamService.getTeams();
+    console.log('Equipos cargados correctamente ' + this.teams)
   }
 
   getStatColor(value: number): string {
@@ -140,4 +71,17 @@ export class TeamListComponent implements OnInit {
   getIonIconName(typeName: string): string {
     return `src/assets/icon/${typeName.toLowerCase()}.svg`;
   }
+
+  deleteTeam(team: Team) {
+    throw new Error('Method not implemented.');
+  }
+
+  editTeam(team: Team) {
+    throw new Error('Method not implemented.');
+  }
+
+  duplicateTeam(team: Team) {
+    throw new Error('Method not implemented.');
+  }
+
 }

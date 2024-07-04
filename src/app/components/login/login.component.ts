@@ -1,5 +1,4 @@
-// src/app/components/login/login.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -8,12 +7,23 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-    username: string = '';
-    password: string = '';
-    errorMessage: string = '';    
+export class LoginComponent implements OnInit {
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.loggedUser$.subscribe(user => {
+      if (user) {
+        // Usuario está autenticado, redirigir a la página de equipos
+        this.router.navigate(['/teams']);
+      }else{
+        
+      }
+    });
+  }
 
   login() {
     this.authService.login(this.username, this.password).subscribe({
