@@ -73,15 +73,15 @@ export class TeamListComponent implements OnInit {
   }
 
   deleteTeam(team: Team) {
-    throw new Error('Method not implemented.');
+    this.teamService.deleteTeam(team);
   }
 
   editTeam(team: Team) {
-    throw new Error('Method not implemented.');
+    this.teamService.deleteTeam(team);
   }
 
   duplicateTeam(team: Team) {
-    throw new Error('Method not implemented.');
+    this.teamService.duplicateTeam(team);
   }
 
 }

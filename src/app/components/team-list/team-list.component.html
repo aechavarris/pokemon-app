@@ -17,25 +17,25 @@
     <!-- Iterar sobre los equipos -->
      <h3>Listado de equipos</h3>
     <ion-row class="team-container" *ngFor="let team of teams; let i = index">
-      <ion-col size="10">
+      <ion-col size="11">
         <div class="team-header" (click)="toggleTeamDetails(i)">
           <ion-icon name="arrow-down-outline" class="arrow-icon icon-large"></ion-icon>
-          <!-- <h3 class="team-name">{{ team.name | titlecase }}</h3> -->
+          <h3 class="team-name">{{ team.name | titlecase }}</h3>
           <!-- Mostrar imágenes de los Pokémon en el header del equipo -->
           <ion-row class="pokemon-row">
             <ion-col *ngFor="let pokemon of team.pokemons">
-              <!-- <img class="pokemon-detail-image" *ngIf="pokemon.image" [src]="pokemon.image" alt="{{ pokemon.name | titlecase }} sprite"> -->
+              <img class="pokemon-detail-image" *ngIf="pokemon.image" [src]="" alt="sprite">
             </ion-col>
           </ion-row>
         </div>
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="1">
         <div class="team-options">
           <div (click)="duplicateTeam(team)">
             <ion-icon name="copy-outline" alt="Duplicar equipo"></ion-icon>
           </div>
           <div (click)="editTeam(team)">
-            <ion-icon name="ion-edit" alt="Editar equipo"></ion-icon>
+            <ion-icon name="edit" alt="Editar equipo"></ion-icon>
           </div>
           <div (click)="deleteTeam(team)">
             <ion-icon name="trash-outline" alt="Borrar equipo"></ion-icon>
